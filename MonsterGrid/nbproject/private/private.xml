@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/gui/MenuMaker.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/gui/WorldFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/world/World.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/gui/GridPanel.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/monstergrid/MonsterGrid.java</file>
+
+            <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Actor.java</file>
+
         </group>
     </open-files>
 </project-private>
