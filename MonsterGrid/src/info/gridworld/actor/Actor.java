@@ -26,7 +26,7 @@ import java.awt.Color;
  * <br />
  * The API of this class is testable on the AP CS A and AB exams.
  */
-public class Actor
+public abstract class Actor implements IActor
 {
     private Grid<Actor> grid;
     private Location location;
@@ -174,15 +174,15 @@ public class Actor
         grid.put(location, this);
     }
 
-    /**
-     * Reverses the direction of this actor. Override this method in subclasses
-     * of <code>Actor</code> to define types of actors with different behavior
-     * 
-     */
-    public void act()
-    {
-        setDirection(getDirection() + Location.HALF_CIRCLE);
-    }
+//    /**
+//     * Reverses the direction of this actor. Override this method in subclasses
+//     * of <code>Actor</code> to define types of actors with different behavior
+//     * 
+//     */
+//    public void act()
+//    {
+//        setDirection(getDirection() + Location.HALF_CIRCLE);
+//    }
 
     /**
      * Creates a string that describes this actor.
