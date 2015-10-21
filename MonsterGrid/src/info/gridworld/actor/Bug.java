@@ -26,7 +26,7 @@ import java.awt.Color;
  * it moves. <br />
  * The implementation of this class is testable on the AP CS A and AB exams.
  */
-public class Bug extends Actor
+public class Bug extends Being
 {
     /**
      * Constructs a red bug.

@@ -26,7 +26,7 @@ import java.awt.Color;
  * <br />
  * The API of this class is testable on the AP CS A and AB exams.
  */
-public class Actor
+public abstract class Actor implements IActor
 {
     private Grid<Actor> grid;
     private Location location;
