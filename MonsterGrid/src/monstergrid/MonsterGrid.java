@@ -9,6 +9,8 @@ import info.gridworld.actor.ActorWorld;
 import info.gridworld.actor.Rock;
 import info.gridworld.grid.Location;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import java.util.Random;
 
 /**
  *
@@ -22,6 +24,7 @@ public class MonsterGrid {
     public static void main(String[] args) 
     {
         ActorWorld world = new ActorWorld();
+
         world.addOccupantClass("info.gridworld.actor.Rock");
         world.addOccupantClass("info.gridworld.actor.Bug");
         world.addOccupantClass("info.gridworld.actor.Food");
@@ -30,6 +33,7 @@ public class MonsterGrid {
         world.add(new Location(4, 4), new Human());
         world.add(new Location(5, 8), new Human());
         world.show();
+        
     }
     
 }
