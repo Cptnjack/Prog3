@@ -11,24 +11,40 @@ import java.util.ArrayList;
 
 import java.awt.Color;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 /**
  *
  * @author Michael
  */
 public class Zombie extends Monster
 {
+    public static boolean playCompleted;
     private static final Color DEFAULT_COLOR = Color.GREEN;
     
-    public Zombie()
+    public Zombie() throws IOException
     {
         super();
         setColor(DEFAULT_COLOR);
+        PlaySound();
     }
     
-    public Zombie(Color zombieColor)
+    public Zombie(Color zombieColor) throws IOException
     {
         super();
         setColor(zombieColor);
+        PlaySound();
     }
     /**
      * Moves this critter to the given location. Implemented to call moveTo.
@@ -47,4 +63,35 @@ public class Zombie extends Monster
             moveTo(loc);
         }
     }
+    
+    public void PlaySound() throws IOException
+    {
+        try {
+            
+            File audioFile = new File("src\\info\\gridworld\\actor\\Zombie.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
+            
+            audioClip.open(audioStream);
+            audioClip.start();
+            
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            audioClip.close();
+            audioStream.close();
+            
+            
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
+

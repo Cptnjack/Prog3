@@ -6,8 +6,19 @@
 package info.gridworld.actor;
 
 import info.gridworld.grid.Location;
+import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -15,6 +26,12 @@ import java.util.ArrayList;
  */
 public class Human extends Being
 {
+    
+    public Human() throws IOException
+    {
+        super();
+        PlaySound();
+    }
     /**
      * Method:  act
      * Purpose: A human acts by getting a list of its neighbors, processing 
@@ -117,5 +134,35 @@ public class Human extends Being
     public void makeMove(Location loc)
     {
         moveTo(loc);
+    }
+    
+    public void PlaySound() throws IOException
+    {
+        try {
+            
+            File audioFile = new File("src\\info\\gridworld\\actor\\Human.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
+            
+            audioClip.open(audioStream);
+            audioClip.start();
+            
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            audioClip.close();
+            audioStream.close();
+            
+            
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

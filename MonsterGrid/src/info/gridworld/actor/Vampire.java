@@ -9,10 +9,21 @@ import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  *
  * @author Michael
@@ -21,16 +32,18 @@ public class Vampire extends Monster
 {
     private static final Color DEFAULT_COLOR = Color.BLACK;
     
-    public Vampire()
+    public Vampire() throws IOException
     {
         super();
         setColor(DEFAULT_COLOR);
+        PlaySound();
     }
     
-    public Vampire(Color vampireColor)
+    public Vampire(Color vampireColor) throws IOException
     {
         super();
         setColor(vampireColor);
+        PlaySound();
     }
     
     /**
@@ -82,8 +95,14 @@ public class Vampire extends Monster
                     
                     Location L = a.getLocation();
                     a.removeSelfFromGrid();
-                    Vampire v = new Vampire();
-                    v.putSelfInGrid(getGrid(), L);
+                    Vampire v;
+                    try {
+                        v = new Vampire();
+                        v.putSelfInGrid(getGrid(), L);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Vampire.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             }
         }
@@ -157,5 +176,35 @@ public class Vampire extends Monster
         super.makeMove(loc);
         moveTo(loc);
       
+    }
+    
+    public void PlaySound() throws IOException
+    {
+        try {
+            
+            File audioFile = new File("src\\info\\gridworld\\actor\\Vampire.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
+            
+            audioClip.open(audioStream);
+            audioClip.start();
+            
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            audioClip.close();
+            audioStream.close();
+            
+            
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

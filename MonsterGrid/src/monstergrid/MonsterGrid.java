@@ -9,6 +9,7 @@ import info.gridworld.actor.ActorWorld;
 import info.gridworld.actor.Rock;
 import info.gridworld.grid.Location;
 import java.awt.Color;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class MonsterGrid {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
+    public static void main(String[] args) throws IOException
     {
         String info = "You can choose to have the application randomly "+
                 "put actors in the grid or if you wish to enter the yourself."+
@@ -45,6 +46,8 @@ public class MonsterGrid {
             world.addOccupantClass("info.gridworld.actor.Rock");
             world.addOccupantClass("info.gridworld.actor.Bug");
             world.addOccupantClass("info.gridworld.actor.Food");
+            world.show();
+            
             world.add(new Food());
             world.add(new Vampire());
             world.add(new Rock());
@@ -59,8 +62,9 @@ public class MonsterGrid {
             world.addOccupantClass("info.gridworld.actor.Human");
             world.addOccupantClass("info.gridworld.actor.Zombie");
             world.addOccupantClass("info.gridworld.actor.Vampire");
+            world.show();
         }
-	world.show();	
+		
     }
     
 }
