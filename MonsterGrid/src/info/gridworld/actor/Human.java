@@ -58,7 +58,7 @@ public class Human extends Being
         for (Actor a : actors)
         {
                        
-            if (!(a instanceof Rock) && !(a instanceof Human))
+            if (a instanceof Food)
             {
                 enemy.add(a); 
             }
