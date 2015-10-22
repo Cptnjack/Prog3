@@ -53,16 +53,21 @@ public class Vampire extends Monster
      *          them, getting locations to move to, selecting one of them, 
      *          and moving to the selected location.
      */
-    public void act()
+    public String act()
     {
         if (getGrid() == null)
-            return;
+            return "";
+        String s = "";
+        Location current = this.getLocation();
         ArrayList<Actor> actors = getActors();
-        processActors(actors);
+        s += processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs);
         makeMove(loc);
-        
+        Location next = this.getLocation();
+        s += "\nVampire moved from "+current.toString()+" to "+
+                next.toString();
+        return new String(s);
     }
     
     /**
@@ -73,11 +78,12 @@ public class Vampire extends Monster
      * same grid as this Being.
      * @param actors the actors to be processed
      */
-    public void processActors(ArrayList<Actor> actors)
+    public String processActors(ArrayList<Actor> actors)
     {   
         double r = Math.random()*10;
         int i = Math.round((float)r);
-        
+        String s = "";
+        Location L;
         for (Actor a : actors)
         {
             
@@ -85,20 +91,32 @@ public class Vampire extends Monster
             {
                 //the vampire gets killed
                 if(i == 0)
+                {
+                    L = a.getLocation();
+                    s+= "\nVampire at " + this.getLocation().toString()+ " was"+
+                            "killed by Human at " + L.toString();
                     this.removeSelfFromGrid();
+                }
                 //the human gets killed
                 else if(i > 1 && i < 7 )
+                {
+                    L = a.getLocation();
+                    s+= "\nVampire killed Human at "+L.toString();
                     a.removeSelfFromGrid();
+                }
+                    
                 //the human is made into a Vampire
                 else if( i > 7)
                 {
-                    
-                    Location L = a.getLocation();
+                    L = a.getLocation();
                     a.removeSelfFromGrid();
                     Vampire v;
                     try {
                         v = new Vampire();
                         v.putSelfInGrid(getGrid(), L);
+                        s+= "\nVampire killed Human at " + L.toString() + 
+                                " and replaced him with another Vampire!";
+                        
                     } catch (IOException ex) {
                         Logger.getLogger(Vampire.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -106,6 +124,7 @@ public class Vampire extends Monster
                 }
             }
         }
+        return new String(s);
     }
     
     /**

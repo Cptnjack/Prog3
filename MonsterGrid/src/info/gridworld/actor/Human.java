@@ -38,15 +38,20 @@ public class Human extends Being
      *          them, getting locations to move to, selecting one of them, and 
      *          moving to the selected location.
      */
-    public void act()
+    public String act()
     {
         if (getGrid() == null)
-            return;
+            return "";
+        Location current = this.getLocation();
         ArrayList<Actor> actors = getActors();
         processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs);
         makeMove(loc);
+        Location next = this.getLocation();
+        String s = "\nHuman moved from "+current.toString()+" to "+
+                next.toString();
+        return new String(s);
     }
 
     /**
@@ -61,6 +66,38 @@ public class Human extends Being
         return getGrid().getNeighbors(getLocation());
     }
 
+//    /**
+//     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
+//     * are not rocks or critters. Override this method in subclasses to process
+//     * neighbors in a different way. <br />
+//     * Precondition: All objects in <code>actors</code> are contained in the
+//     * same grid as this critter.
+//     * @param actors the actors to be processed
+//     */
+//    public void processActors(ArrayList<Actor> actors)
+//    {
+//        ArrayList<Actor> enemy = new ArrayList<>();
+//        for (Actor a : actors)
+//        {
+//                       
+//            if (a instanceof Food)
+//            {
+//                enemy.add(a); 
+//            }
+//        }   
+//        
+//        int n = enemy.size();
+//        if (n == 0)
+//            return;
+//        int r = (int) (Math.random() * n);
+//
+//        Actor other = enemy.get(r);
+//        other.removeSelfFromGrid();
+////            if (!(a instanceof Rock) && !(a instanceof Critter))
+////                a.removeSelfFromGrid();
+//        
+//    }
+
     /**
      * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
      * are not rocks or critters. Override this method in subclasses to process
@@ -69,12 +106,11 @@ public class Human extends Being
      * same grid as this critter.
      * @param actors the actors to be processed
      */
-    public void processActors(ArrayList<Actor> actors)
+    public String processActors(ArrayList<Actor> actors)
     {
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
-        {
-                       
+        {             
             if (a instanceof Food)
             {
                 enemy.add(a); 
@@ -83,16 +119,15 @@ public class Human extends Being
         
         int n = enemy.size();
         if (n == 0)
-            return;
+            return "";
         int r = (int) (Math.random() * n);
 
         Actor other = enemy.get(r);
         other.removeSelfFromGrid();
-//            if (!(a instanceof Rock) && !(a instanceof Critter))
-//                a.removeSelfFromGrid();
-        
+        String s = "";
+        return new String(s);        
     }
-
+    
     /**
      * Gets the possible locations for the next move. Implemented to return the
      * empty neighboring locations. Override this method in subclasses to look

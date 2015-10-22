@@ -179,9 +179,10 @@ public abstract class Actor implements IActor
      * of <code>Actor</code> to define types of actors with different behavior
      * 
      */
-    public void act()
+    public String act()
     {
         setDirection(getDirection() + Location.HALF_CIRCLE);
+        return "";
     }
 
     /**

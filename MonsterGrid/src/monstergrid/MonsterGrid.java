@@ -37,22 +37,24 @@ public class MonsterGrid {
         
         //Creates a String to be  displayed in the JOptionPane
         String rand = "Would you like to use random placement of actors?";
-        ActorWorld world = new ActorWorld();
+        
         int option = JOptionPane.showConfirmDialog(null, rand, "asdf", 
                 JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
         
+        ActorWorld world = new ActorWorld();
         if(option == JOptionPane.YES_OPTION)
         {
             world.addOccupantClass("info.gridworld.actor.Rock");
             world.addOccupantClass("info.gridworld.actor.Bug");
             world.addOccupantClass("info.gridworld.actor.Food");
-            world.show();
+            
             
             world.add(new Food());
             world.add(new Vampire());
             world.add(new Rock());
             world.add(new Rock());
-            world.add(new Human());            
+            world.add(new Human());   
+            world.show();
         }
         else
         {

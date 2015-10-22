@@ -51,7 +51,8 @@ public class Rock extends Actor
      * Overrides the <code>act</code> method in the <code>Actor</code> class
      * to do nothing.
      */
-    public void act()
+    public String act()
     {
+        return "";
     }
 }

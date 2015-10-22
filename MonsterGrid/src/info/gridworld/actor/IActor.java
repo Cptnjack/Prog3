@@ -96,7 +96,7 @@ public interface IActor
      *          in subclasses of Actor to define types of actors with different
      *          behavior
      */
-    void act();
+    String act();
 
     /**
      * Method: toString
