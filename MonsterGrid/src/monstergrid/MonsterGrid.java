@@ -26,12 +26,12 @@ public class MonsterGrid {
         ActorWorld world = new ActorWorld();
 
         world.addOccupantClass("info.gridworld.actor.Rock");
-        world.addOccupantClass("info.gridworld.actor.Bug");
         world.addOccupantClass("info.gridworld.actor.Food");
         world.add(new Location(7, 8), new Rock());
         world.add(new Location(3, 3), new Rock());
-        world.add(new Location(4, 4), new Human());
-        world.add(new Location(5, 8), new Human());
+        world.add(new Location(0, 0), new Entrance());
+        world.add(new Location(9, 9), new ExitPortal());
+        world.add(new Location(5, 8), new Zombie());
         world.show();
         
     }

@@ -77,7 +77,8 @@ public interface Grid<E>
      *  if the location is unoccupied)
      */
     E get(Location loc);
-
+    
+        
     /**
      * Gets the locations in this grid that contain objects.
      * @return an array list of all occupied locations in this grid

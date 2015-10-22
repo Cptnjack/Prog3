@@ -38,7 +38,7 @@ public abstract class Actor implements IActor
      */
     public Actor()
     {
-        color = Color.BLUE;
+        color = null;
         direction = Location.NORTH;
         grid = null;
         location = null;
