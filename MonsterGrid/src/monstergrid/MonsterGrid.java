@@ -24,6 +24,7 @@ public class MonsterGrid {
      */
     public static void main(String[] args) throws IOException
     {
+
         String info = "You can choose to have the application randomly "+
                 "put actors in the grid or if you wish to enter the yourself."+
                 "\nTo add actors to the grid, click on a spot in the grid and"+
@@ -34,6 +35,7 @@ public class MonsterGrid {
         
         JOptionPane.showMessageDialog(null, info, "Instructions", 
                 JOptionPane.PLAIN_MESSAGE);
+
         
         //Creates a String to be  displayed in the JOptionPane
         String rand = "Would you like to use random placement of actors?";

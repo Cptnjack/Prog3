@@ -33,6 +33,7 @@ public abstract class AbstractGrid<E> implements Grid<E>
         return neighbors;
     }
 
+  
     public ArrayList<Location> getValidAdjacentLocations(Location loc)
     {
         ArrayList<Location> locs = new ArrayList<Location>();

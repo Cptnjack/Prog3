@@ -20,6 +20,8 @@
 
 package info.gridworld.grid;
 
+import java.lang.Math;
+
 /**
  * A <code>Location</code> object represents the row and column of a location
  * in a two-dimensional grid. <br />
@@ -253,5 +255,19 @@ public class Location implements Comparable
     public String toString()
     {
         return "(" + getRow() + ", " + getCol() + ")";
+    }
+    
+    public double calcDistanceTo(Location loc2)
+    {
+        if (this.getRow() == loc2.getRow())
+            return Math.abs((double)(this.getCol() - loc2.getCol()));
+        else if(this.getCol() == loc2.getCol())
+            return Math.abs((double)(this.getRow() - loc2.getRow()));
+        else
+        {
+            int num = Math.abs(this.getRow() - loc2.getRow());
+            int denom = Math.abs(this.getCol() - loc2.getCol());
+            return num/denom;
+        }
     }
 }
