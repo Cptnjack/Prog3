@@ -29,26 +29,24 @@ import java.awt.Color;
  */
 
 public class Food extends Actor
-{    
-    private static final Color DEFAULT_COLOR = Color.BLACK;
-
+{   
     /**
-     * Constructs a black rock.
+     * Constructs a Food.
      */
     public Food()
     {
-        setColor(DEFAULT_COLOR);
+        setColor(null);
     }
 
     /**
-     * Constructs a rock of a given color.
-     * @param rockColor the color of this rock
+     * Constructs Food of a given color.
+     * @param initialColor the initial color of this flower
      */
-    public Food(Color foodColor)
+    public Food(Color initialColor)
     {
-        setColor(foodColor);
+        setColor(initialColor);
     }
-
+  
     /**
      * Overrides the <code>act</code> method in the <code>Actor</code> class
      * to do nothing.

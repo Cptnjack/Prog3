@@ -5,9 +5,14 @@
  */
 package info.gridworld.actor;
 
+import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
+
 import java.io.File;
 import java.io.IOException;
+
+import java.awt.Color;
+
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,13 +30,28 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author lconfair
  */
 public class Human extends Being
-{
-    
+
+{   
+    /**
+     * Constructs a Human.
+     */
     public Human() throws IOException
     {
-        super();
-        PlaySound();
+        setColor(null);
+		PlaySound();
     }
+
+    /**
+     * Constructs a Human of a given color.
+     * @param initialColor the initial color of this flower
+     */
+    public Human(Color initialColor) throws IOException
+    {
+        setColor(initialColor);
+		PlaySound();
+    }
+    
+
     /**
      * Method:  act
      * Purpose: A human acts by getting a list of its neighbors, processing 
@@ -46,7 +66,7 @@ public class Human extends Being
         ArrayList<Actor> actors = getActors();
         processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
-        Location loc = selectMoveLocation(moveLocs);
+        Location loc = selectMoveLocation(moveLocs,findDirection());
         makeMove(loc);
         Location next = this.getLocation();
         String s = "\nHuman moved from "+current.toString()+" to "+
@@ -110,8 +130,11 @@ public class Human extends Being
     {
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
-        {             
-            if (a instanceof Food)
+        {           
+            if (!(a instanceof Rock) 
+                    && !(a instanceof Human) 
+                    && !(a instanceof Entrance)
+                    && !(a instanceof ExitPortal))
             {
                 enemy.add(a); 
             }
@@ -148,15 +171,46 @@ public class Human extends Being
      * Precondition: All locations in <code>locs</code> are valid in the grid
      * of this critter
      * @param locs the possible locations for the next move
+     * @param direction the direction of the closest monster or exit
      * @return the location that was selected for the next move.
      */
-    public Location selectMoveLocation(ArrayList<Location> locs)
+    public Location selectMoveLocation(ArrayList<Location> locs, int direction)
     {
+        Location towards = null;
+        int newD = (direction + 180) % 360;
         int n = locs.size();
+        
         if (n == 0)
             return getLocation();
-        int r = (int) (Math.random() * n);
-        return locs.get(r);
+        else if (n == 1)
+            return locs.get(0);
+        else
+        {
+            if (direction == 999)
+            {
+                int r = (int) (Math.random() * n);
+                towards = locs.get(r);
+            }
+            else
+            {
+                int tempDirect = 360;
+                for (Location L : locs)
+                {   
+                    int d = this.getLocation().getDirectionToward(L);
+                    if (d == newD)
+                        return L;
+                    else 
+                    {
+                        if (Math.abs(newD - d) < tempDirect)
+                        {
+                            tempDirect = d;
+                            towards = L;
+                        }
+                    }                
+                }
+            }
+        }
+        return towards;
     }
 
     /**
@@ -168,9 +222,11 @@ public class Human extends Being
      */
     public void makeMove(Location loc)
     {
+        setDirection(getLocation().getDirectionToward(loc));
         moveTo(loc);
     }
     
+
     public void PlaySound() throws IOException
     {
         try {
@@ -199,5 +255,42 @@ public class Human extends Being
         } catch (LineUnavailableException ex) {
             Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    
+    public int findDirection()
+    {
+        ArrayList<Location> L = getGrid().getOccupiedLocations();
+        ArrayList<Actor> players = new ArrayList<>();
+        for (Location i : L)
+        {
+            players.add(getGrid().get(i));
+        }
+        
+        double dist = 10;
+        Actor target = null;
+        int direction = 999;
+        
+        for (Actor P : players)
+        {
+            if ((P instanceof Zombie) 
+                    || (P instanceof Vampire) 
+                    || (P instanceof ExitPortal))
+            {
+                if (P.getLocation().calcDistanceTo(this.getLocation()) < dist)
+                    target = P;
+            }             
+        }
+        
+        if (target != null)
+        {
+            direction = this.getLocation().getDirectionToward(target.getLocation());
+        }
+        
+        if (target instanceof ExitPortal)
+            direction += 180;
+               
+        System.out.println(direction);
+        return direction;
     }
 }
