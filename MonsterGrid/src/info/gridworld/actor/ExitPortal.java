@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Name:    Lewis Confair and Michael Whitley
+ * File:    ExitPortal.java
+ * Purpose: Provides a class for a ExitPortal actor.
  */
 package info.gridworld.actor;
 
@@ -9,15 +9,17 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- *
- * @author lconfair
+ * An ExitPortal is an actor that does not move and removes a any humans that
+ * are on the grid adjacent to the ExitPortal
  */
 public class ExitPortal extends Actor
 {
     private static final Color DEFAULT_COLOR = Color.BLACK;
 
     /**
-     * Constructs a black rock.
+     * Method:  ExitPortal
+     * Purpose: Default constructor for ExitPortal, constructs a black 
+     *          ExitPortal
      */
     public ExitPortal()
     {
@@ -25,23 +27,30 @@ public class ExitPortal extends Actor
     }
 
     /**
-     * Constructs a rock of a given color.
-     * @param rockColor the color of this rock
+     * Method:  ExitPortal
+     * Purpose: Parameterized constructor for ExitPortal, constructs an 
+     *          ExitPortal with the color passed
+     * @param ExitColor:    the color for the new ExitPortal
      */
-    public ExitPortal(Color rockColor)
+    public ExitPortal(Color ExitColor)
     {
-        setColor(rockColor);
+        setColor(ExitColor);
     }
 
     /**
-     * Overrides the <code>act</code> method in the <code>Actor</code> class
-     * to do nothing.
+     * Method:  act
+     * Purpose: An ExitPortal acts by getting a list of neighbors and processing 
+     *          them
+     * @return String:  returns a string to be output in the panel 
      */
     public String act()
-    {
-        
+    {   
+        //if this actor is not on the grid return ""
         if (getGrid() == null)
             return "";
+        
+        //get the list of adjacent actors and pass it to processActors for
+        //processing
         ArrayList<Actor> actors = getActors();        
         processActors(actors);
         return "";
@@ -49,10 +58,9 @@ public class ExitPortal extends Actor
     
     /**
      * Method:  getActors
-     * Purpose: Gets the actors that are in the same grid for processing. 
-     *          Implemented to return the actors that occupy neighboring grid 
-     *          locations. 
-     * @return a list of actors that are neighbors of this critter
+     * Purpose: Gets the actors that are in the same grid as the ExitPortal
+     *          for processing.
+     * @return: a list of actors that are neighbors of this critter
      */
     public ArrayList<Actor> getActors()
     {
@@ -60,12 +68,10 @@ public class ExitPortal extends Actor
     }
     
     /**
-     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
-     * are not rocks or critters. Override this method in subclasses to process
-     * neighbors in a different way. <br />
-     * Precondition: All objects in <code>actors</code> are contained in the
-     * same grid as this critter.
-     * @param actors the actors to be processed
+     * Method:  processActors
+     * Purpose: Processes the actors. The ExitPortal will consume(remove) any
+     *          humans that are adjacent to the ExitPortal
+     * @param actors:   the list of actors adjacent to the exit portal
      */
     public void processActors(ArrayList<Actor> actors)
     {

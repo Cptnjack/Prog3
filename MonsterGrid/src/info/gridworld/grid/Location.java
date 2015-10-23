@@ -257,6 +257,13 @@ public class Location implements Comparable
         return "(" + getRow() + ", " + getCol() + ")";
     }
     
+    /**
+     * Method:  calcDistanceTo
+     * Purpose: calculates the distance between two locations on the grid
+     * @author: added my Lewis Confair and Michael Whitley
+     * @param loc2: The location to calculate distance to
+     * @return double: the distance between the two locations 
+     */
     public double calcDistanceTo(Location loc2)
     {
         if (this.getRow() == loc2.getRow())

@@ -1,7 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Name:    Lewis Confair and Michael Whitley
+ * Course:  4143 Contemporary Programming Languages
+ * Date:    10/23/2015
+ * Program: Program 3 - Monsters
+ * Purpose: Develop a library of actors to demonstrate interfaces, inheritance, 
+ *          and polymorphism. Create a 2D grid and display the actors on the 
+ *          grid having them move and interact with each other and their 
+ *          environment
+ * Borrowed Code:   Horstmann's gridworld code was utilized to implement the 
+ *                  grid and GUI.
+ * Modified Code:   The following files from Horstmann's code were modified for 
+ *                  this assignment:
+ *                      -Actor.java
+ *                      -ActorWorld.java
+ *                      -Being.java
+ *                      -Location.java
  */
 package monstergrid;
 import info.gridworld.actor.*;
@@ -24,22 +37,7 @@ public class MonsterGrid {
      */
     public static void main(String[] args) throws IOException
     {
-<<<<<<< HEAD
-//<<<<<<< HEAD
-//        ActorWorld world = new ActorWorld();
-//
-//        world.addOccupantClass("info.gridworld.actor.Rock");
-//        world.addOccupantClass("info.gridworld.actor.Food");
-//        world.add(new Location(7, 8), new Rock());
-//        world.add(new Location(3, 3), new Rock());
-//        world.add(new Location(0, 0), new Entrance());
-//        world.add(new Location(9, 9), new ExitPortal());
-//        world.add(new Location(5, 8), new Zombie());
-//        world.show();
-//=======
-=======
-
->>>>>>> origin/Lewis
+        //Display instructions in a panel for user
         String info = "You can choose to have the application randomly "+
                 "put actors in the grid or if you wish to enter the yourself."+
                 "\nTo add actors to the grid, click on a spot in the grid and"+
@@ -47,26 +45,20 @@ public class MonsterGrid {
                 "To change the size of the grid, select the 'World'"+
                 " item on the menu strip, then select 'Set Grid' from"+
                 " the dropdown menu.\n";
-        
-        JOptionPane.showMessageDialog(null, info, "Instructions", 
+                JOptionPane.showMessageDialog(null, info, "Instructions", 
                 JOptionPane.PLAIN_MESSAGE);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/Lewis
         
-        //Creates a String to be  displayed in the JOptionPane
+        //Display option for user to enter actors or have the placement be 
+        //random
         String rand = "Would you like to use random placement of actors?";
-        
-        int option = JOptionPane.showConfirmDialog(null, rand, "asdf", 
+         int option = JOptionPane.showConfirmDialog(null, rand, "Random", 
                 JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
         
+         //for random actor placement
         ActorWorld world = new ActorWorld();
         if(option == JOptionPane.YES_OPTION)
-        {
-            world.addOccupantClass("info.gridworld.actor.Rock");
-            world.addOccupantClass("info.gridworld.actor.Bug");
-            world.addOccupantClass("info.gridworld.actor.Food");           
+        {         
+            world.add(new Food());
             world.add(new Food());
             world.add(new Vampire());
             world.add(new Zombie());
@@ -76,10 +68,11 @@ public class MonsterGrid {
             world.add(new ExitPortal());
             world.show();
         }
+        //populate the GUI with needed classes to facilitate their placement on
+        //the grid
         else
         {
             world.addOccupantClass("info.gridworld.actor.Rock");
-            world.addOccupantClass("info.gridworld.actor.Bug");
             world.addOccupantClass("info.gridworld.actor.Food");
             world.addOccupantClass("info.gridworld.actor.Human");
             world.addOccupantClass("info.gridworld.actor.Zombie");
