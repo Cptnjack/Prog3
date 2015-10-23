@@ -5,15 +5,10 @@
  */
 package info.gridworld.actor;
 
-import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.awt.Color;
-
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,38 +81,6 @@ public class Human extends Being
         return getGrid().getNeighbors(getLocation());
     }
 
-//    /**
-//     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
-//     * are not rocks or critters. Override this method in subclasses to process
-//     * neighbors in a different way. <br />
-//     * Precondition: All objects in <code>actors</code> are contained in the
-//     * same grid as this critter.
-//     * @param actors the actors to be processed
-//     */
-//    public void processActors(ArrayList<Actor> actors)
-//    {
-//        ArrayList<Actor> enemy = new ArrayList<>();
-//        for (Actor a : actors)
-//        {
-//                       
-//            if (a instanceof Food)
-//            {
-//                enemy.add(a); 
-//            }
-//        }   
-//        
-//        int n = enemy.size();
-//        if (n == 0)
-//            return;
-//        int r = (int) (Math.random() * n);
-//
-//        Actor other = enemy.get(r);
-//        other.removeSelfFromGrid();
-////            if (!(a instanceof Rock) && !(a instanceof Critter))
-////                a.removeSelfFromGrid();
-//        
-//    }
-
     /**
      * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
      * are not rocks or critters. Override this method in subclasses to process
@@ -131,10 +94,7 @@ public class Human extends Being
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
         {           
-            if (!(a instanceof Rock) 
-                    && !(a instanceof Human) 
-                    && !(a instanceof Entrance)
-                    && !(a instanceof ExitPortal))
+            if(a instanceof Food)
             {
                 enemy.add(a); 
             }
@@ -226,7 +186,10 @@ public class Human extends Being
         moveTo(loc);
     }
     
-
+    /**
+     * Plays the sound of the Human
+     * @throws IOException 
+     */
     public void PlaySound() throws IOException
     {
         try {
@@ -290,7 +253,7 @@ public class Human extends Being
         if (target instanceof ExitPortal)
             direction += 180;
                
-        System.out.println(direction);
+        
         return direction;
     }
 }

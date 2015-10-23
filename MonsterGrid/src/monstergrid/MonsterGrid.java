@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package monstergrid;
 import info.gridworld.actor.*;
 import info.gridworld.actor.ActorWorld;
 import info.gridworld.actor.Rock;
-import info.gridworld.grid.Location;
-import java.awt.Color;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import java.util.Random;
 
 /**
  *
@@ -21,6 +13,7 @@ public class MonsterGrid {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException
     {
@@ -44,6 +37,9 @@ public class MonsterGrid {
                 JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
         
         ActorWorld world = new ActorWorld();
+        world.add(new Entrance());
+        world.add(new ExitPortal());
+        
         if(option == JOptionPane.YES_OPTION)
         {
             world.addOccupantClass("info.gridworld.actor.Rock");
@@ -55,7 +51,7 @@ public class MonsterGrid {
             world.add(new Vampire());
             world.add(new Rock());
             world.add(new Rock());
-            world.add(new Human());   
+              
             world.show();
         }
         else

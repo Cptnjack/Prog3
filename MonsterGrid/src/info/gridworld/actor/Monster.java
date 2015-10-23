@@ -1,35 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.gridworld.actor;
-
 import info.gridworld.grid.Location;
-
 import java.util.ArrayList;
+
 /**
  *
- * @author Michael
+ * @author Michael Whitley and Lewis Confair
+ * @date 10/22/2015
+ * @description A monster is a Being that eats Humans
  */
+
 public class Monster extends Being 
 {
     /**
-     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
-     * are not rocks or critters. Override this method in subclasses to process
-     * neighbors in a different way. <br />
+     * Processes the actors. Implemented to "eat" (i.e. remove) Humans.<br />
      * Precondition: All objects in <code>actors</code> are contained in the
-     * same grid as this critter.
+     * same grid as this Monster.
      * @param actors the actors to be processed
+     * @return String containing the action taken
      */
     public String processActors(ArrayList<Actor> actors)
     {
-     
         String s = "";
         Location L;
         for (Actor a : actors)
         {
-            if (!(a instanceof Rock) && !(a instanceof Monster))
+            if (a instanceof Human)
             {
                 L = a.getLocation();
                 s += "\nBeing removed "+a.getClass().toString()+" at location"+
@@ -45,7 +40,7 @@ public class Monster extends Being
      * Gets the possible locations for the next move. Implemented to return the
      * empty neighboring locations. Override this method in subclasses to look
      * elsewhere for move locations.<br />
-     * Postcondition: The locations must be valid in the grid of this critter.
+     * Postcondition: The locations must be valid in the grid of this Monster.
      * @return a list of possible locations for the next move
      */
     public ArrayList<Location> getMoveLocations()
@@ -59,7 +54,7 @@ public class Monster extends Being
      * <code>locs</code> has size 0. Override this method in subclasses that
      * have another mechanism for selecting the next move location. <br />
      * Precondition: All locations in <code>locs</code> are valid in the grid
-     * of this critter
+     * of this Monster
      * @param locs the possible locations for the next move
      * @return the location that was selected for the next move.
      */
@@ -73,10 +68,10 @@ public class Monster extends Being
     }
 
     /**
-     * Moves this critter to the given location. Implemented to call moveTo.
+     * Moves this Monster to the given location. Implemented to call moveTo.
      * Override this method in subclasses that want to carry out other actions
      * for moving (for example, turning or leaving traces). <br />
-     * Precondition: <code>loc</code> is valid in the grid of this critter
+     * Precondition: <code>loc</code> is valid in the grid of this Monster
      * @param loc the location to move to (must be valid)
      */
     public void makeMove(Location loc)
@@ -86,8 +81,9 @@ public class Monster extends Being
     
     /**
      * Method:  act
-     * @returns: void
-     * Purpose: A Vampire acts by getting a list of its neighbors, processing 
+     * 
+     * @return String containing action taken
+     * Purpose: A Monster acts by getting a list of its neighbors, processing 
      *          them, getting locations to move to, selecting one of them, 
      *          and moving to the selected location.
      */

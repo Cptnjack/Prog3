@@ -11,7 +11,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
- * @author Cay Horstmann
+ * @author Cay Horstman
+ *
+ * Modified by Michael Whitley 10/22/2015
  */
 
 package info.gridworld.actor;
@@ -69,6 +71,8 @@ public class ActorWorld extends World<Actor>
             if (a.getGrid() == gr)
             {
                 s = a.act();
+                //adds the actors action for this step to the 
+                //message above the grid
                 super.setMessage(super.getMessage()+s);
             }
         }

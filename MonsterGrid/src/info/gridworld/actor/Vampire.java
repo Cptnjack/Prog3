@@ -1,20 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.gridworld.actor;
-
-import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
-
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
-
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
@@ -24,10 +13,17 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-/**
- *
- * @author Michael
+
+/*
+ * @author Michael Whitley and Lewis Confair
+ * @date 10/22/2015
+ * @description: A Vampire is a Monster that chases Humans and attempts to eat
+ *               them. There is a chance that the Vampire will just kill the
+ *               Human, the Human will kill the Vampire, or the Vampire will
+ *               change the Human into a Vampire
+ * 
  */
+
 public class Vampire extends Monster 
 {
     private static final Color DEFAULT_COLOR = Color.BLACK;
@@ -48,7 +44,7 @@ public class Vampire extends Monster
     
     /**
      * Method:  act
-     * @returns: void
+     * @return: String containing the action taken
      * Purpose: A Vampire acts by getting a list of its neighbors, processing 
      *          them, getting locations to move to, selecting one of them, 
      *          and moving to the selected location.
@@ -62,7 +58,7 @@ public class Vampire extends Monster
         ArrayList<Actor> actors = getActors();
         s += processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
-        Location loc = selectMoveLocation(moveLocs);
+        Location loc = selectMoveLocation(moveLocs,findDirection());
         makeMove(loc);
         Location next = this.getLocation();
         s += "\nVampire moved from "+current.toString()+" to "+
@@ -77,6 +73,7 @@ public class Vampire extends Monster
      * Precondition: All objects in <code>actors</code> are contained in the
      * same grid as this Being.
      * @param actors the actors to be processed
+     * @return String containing action taken
      */
     public String processActors(ArrayList<Actor> actors)
     {   
@@ -118,7 +115,9 @@ public class Vampire extends Monster
                                 " and replaced him with another Vampire!";
                         
                     } catch (IOException ex) {
-                        Logger.getLogger(Vampire.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(
+                                Vampire.class.getName()).log(Level.SEVERE, 
+                                        null, ex);
                     }
                     
                 }
@@ -128,59 +127,87 @@ public class Vampire extends Monster
     }
     
     /**
-     * Gets the possible locations for the next move. Implemented to return the
-     * empty neighboring locations. Override this method in subclasses to look
-     * elsewhere for move locations.<br />
-     * Postcondition: The locations must be valid in the grid of this Being.
-     * @return a list of possible locations for the next move
+     * Selects the location for the next move. Implemented to chase a Human,
+     * or to return the current location if
+     * <code>locs</code> has size 0.<br />
+     * Precondition: All locations in <code>locs</code> are valid in the grid
+     * of this Vampire
+     * @param locs the possible locations for the next move
+     * @param direction the direction of the Human
+     * @return the location that was selected for the next move.
      */
-    public ArrayList<Location> getMoveLocations()
+    public Location selectMoveLocation(ArrayList<Location> locs, int direction)
     {
-       
-        return getGrid().getEmptyAdjacentLocations(getLocation());
+        Location towards = null;
+        int newD = (direction ) % 360;
+        int n = locs.size();
+        
+        if (n == 0)
+            return getLocation();
+        else if (n == 1)
+            return locs.get(0);
+        else
+        {
+            if (direction == 999)
+            {
+                int r = (int) (Math.random() * n);
+                towards = locs.get(r);
+            }
+            else
+            {
+                int tempDirect = 360;
+                for (Location L : locs)
+                {   
+                    int d = this.getLocation().getDirectionToward(L);
+                    if (d == newD)
+                        return L;
+                    else 
+                    {
+                        if (Math.abs(newD - d) < tempDirect)
+                        {
+                            tempDirect = d;
+                            towards = L;
+                        }
+                    }                
+                }
+            }
+        }
+        return towards;
     }
     
     /**
-     * Selects the location for the next move. Implemented to pick the location 
-     * that moves toward the Human in the grid, or to return the current 
-     * location if <code>locs</code> has size 0. Override this method in 
-     * subclasses that have another mechanism for selecting the next move 
-     * location. <br />
-     * Precondition: All locations in <code>locs</code> are valid in the grid
-     * of this Being
-     * @param locs the possible locations for the next move
-     * @return the location that was selected for the next move.
+     * Selects the direction in which the Vampire is to move next
+     * @return int containing the direction in which to move next
      */
-    public Location selectMoveLocation(ArrayList<Location> locs)
+    public int findDirection()
     {
-        int n = locs.size();
-        if (n == 0)
-            return getLocation();
-        
-        
         ArrayList<Location> L = getGrid().getOccupiedLocations();
-        ArrayList<Actor> A = new ArrayList<>();
-        
+        ArrayList<Actor> players = new ArrayList<>();
         for (Location i : L)
         {
-            if(getGrid().get(i) instanceof Human)
-                A.add(getGrid().get(i));
+            players.add(getGrid().get(i));
         }
         
-        if(A.isEmpty())
+        double dist = 10;
+        Actor target = null;
+        int direction = 999;
+        
+        for (Actor P : players)
         {
-            int r = (int) (Math.random() * n);
-            return locs.get(r);
+            if ((P instanceof Human))
+            {
+                if (P.getLocation().calcDistanceTo(this.getLocation()) < dist)
+                    target = P;
+            }             
         }
-        Actor h = A.get(0);
         
-        int d = this.getLocation().getDirectionToward(h.getLocation());
-        Location next = this.getLocation().getAdjacentLocation(d);
+        if (target != null)
+        {
+            direction = this.getLocation().getDirectionToward(
+                    target.getLocation());
+        }
         
-        if(h.getLocation().equals(next))
-            return getLocation();
-     
-        return next;
+        return direction;
     }
     
     /**
@@ -197,12 +224,18 @@ public class Vampire extends Monster
       
     }
     
+    /**
+     * Plays the sound of the Vampire
+     * @throws IOException 
+     */
     public void PlaySound() throws IOException
     {
         try {
             
-            File audioFile = new File("src\\info\\gridworld\\actor\\Vampire.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            File audioFile = new File(
+                    "src\\info\\gridworld\\actor\\Vampire.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+                    audioFile);
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
             Clip audioClip = (Clip) AudioSystem.getLine(info);
@@ -216,14 +249,15 @@ public class Vampire extends Monster
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+            
             audioClip.close();
             audioStream.close();
             
             
         } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         } catch (LineUnavailableException ex) {
-            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -20,7 +20,7 @@ public abstract class Being extends Actor
 {
     /**
      * Method:  act
-     * @returns: void
+     * @returns: a string containing the action the Being took in the turn
      * Purpose: A Being acts by getting a list of its neighbors, processing 
      *          them, getting locations to move to, selecting one of them, 
      *          and moving to the selected location.

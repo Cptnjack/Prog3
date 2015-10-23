@@ -95,6 +95,7 @@ public interface IActor
      * Purpose: Reverses the direction of this actor. Override this method 
      *          in subclasses of Actor to define types of actors with different
      *          behavior
+     * @return: a string containing the action the Actor took in the turn
      */
     String act();
 

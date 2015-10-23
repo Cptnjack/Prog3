@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.gridworld.actor;
-
 import info.gridworld.grid.Location;
-
 import java.util.ArrayList;
-
 import java.awt.Color;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -20,17 +11,21 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-/**
- *
- * @author Michael
+/*
+ * @author Michael Whitley and Lewis Confair
+ * @date 10/22/2015
+ * @description: A Zombie is a Monster that moves randomly and attempts to eat
+ *               Humans. There is a chance that the Zombie will just kill the
+ *               Human, the Human will kill the Zombie, or the Zombie will
+ *               change the Human into a Zombie
+ * 
  */
+
 public class Zombie extends Monster
 {
-    public static boolean playCompleted;
     private static final Color DEFAULT_COLOR = Color.GREEN;
     
     public Zombie() throws IOException
@@ -46,11 +41,10 @@ public class Zombie extends Monster
         setColor(zombieColor);
         PlaySound();
     }
+    
     /**
-     * Moves this critter to the given location. Implemented to call moveTo.
-     * Override this method in subclasses that want to carry out other actions
-     * for moving (for example, turning or leaving traces). <br />
-     * Precondition: <code>loc</code> is valid in the grid of this critter
+     * Moves this Zombie to the given location. Implemented to call moveTo.<br/>
+     * Precondition: <code>loc</code> is valid in the grid of this Zombie
      * @param loc the location to move to (must be valid)
      */
     public void makeMove(Location loc)
@@ -65,11 +59,9 @@ public class Zombie extends Monster
     }
     
     /**
-     * Method:  act
-     * @returns: void
-     * Purpose: A Vampire acts by getting a list of its neighbors, processing 
-     *          them, getting locations to move to, selecting one of them, 
-     *          and moving to the selected location.
+     * A Zombie acts by getting locations to move to, selecting one of them, 
+     * and moving to the selected location.
+     * @returns String containing the action taken
      */
     public String act()
     {
@@ -134,7 +126,9 @@ public class Zombie extends Monster
                         s+= "\nZombie killed Human at " + L.toString() + 
                                 "and replaced him with another Zombie!";
                     } catch (IOException ex) {
-                        Logger.getLogger(Vampire.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(
+                                Vampire.class.getName()).log(Level.SEVERE,
+                                        null, ex);
                     }
                     
                 }
@@ -143,13 +137,18 @@ public class Zombie extends Monster
         return new String(s);
     }
     
-    
+    /**
+     * Plays the sound of the Zombie
+     * @throws IOException 
+     */
     public void PlaySound() throws IOException
     {
         try {
             
-            File audioFile = new File("src\\info\\gridworld\\actor\\Zombie.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            File audioFile = new File(
+                    "src\\info\\gridworld\\actor\\Zombie.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+                    audioFile);
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
             Clip audioClip = (Clip) AudioSystem.getLine(info);
@@ -168,9 +167,9 @@ public class Zombie extends Monster
             
             
         } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         } catch (LineUnavailableException ex) {
-            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
