@@ -3,33 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/gui/WorldFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Human.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/world/World.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/ActorWorld.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Monster.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Entrance.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/gui/GridPanel.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Being.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Vampire.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Zombie.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Actor.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/ExitPortal.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/monstergrid/MonsterGrid.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/IActor.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/Prog3/MonsterGrid/src/info/gridworld/actor/Food.java</file>
-
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Human.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/monstergrid/MonsterGrid.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Vampire.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/grid/Grid.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/grid/BoundedGrid.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/grid/AbstractGrid.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/grid/Location.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Being.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Actor.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Food.java</file>
-            <file>file:/C:/Users/lconfair/Box%20Sync/Working%20Code/Java/Prog3/MonsterGrid/src/info/gridworld/actor/Flower.java</file>
-
         </group>
     </open-files>
 </project-private>
