@@ -54,7 +54,11 @@ public class Entrance extends Actor
         } catch (IOException ex) {
             Logger.getLogger(Entrance.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
         return "";        
+=======
+        return "";
+>>>>>>> origin/Lewis
     }
     
     /**

@@ -7,9 +7,19 @@ package info.gridworld.actor;
 
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
+<<<<<<< HEAD
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+=======
+
+import java.io.File;
+import java.io.IOException;
+
+import java.awt.Color;
+
+
+>>>>>>> origin/Lewis
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,25 +36,40 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author lconfair
  */
 public class Human extends Being
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Lewis
 {   
     /**
      * Constructs a Human.
      */
     public Human() throws IOException
     {
+<<<<<<< HEAD
         super();        
         setColor(null); 
         PlaySound();
+=======
+        setColor(null);
+		PlaySound();
+>>>>>>> origin/Lewis
     }
 
     /**
      * Constructs a Human of a given color.
      * @param initialColor the initial color of this flower
      */
-    public Human(Color initialColor)
+    public Human(Color initialColor) throws IOException
     {
         setColor(initialColor);
+<<<<<<< HEAD
     }    
+=======
+		PlaySound();
+    }
+    
+>>>>>>> origin/Lewis
 
     /**
      * Method:  act
@@ -125,8 +150,16 @@ public class Human extends Being
     {
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
+<<<<<<< HEAD
         {             
             if (a instanceof Food)
+=======
+        {           
+            if (!(a instanceof Rock) 
+                    && !(a instanceof Human) 
+                    && !(a instanceof Entrance)
+                    && !(a instanceof ExitPortal))
+>>>>>>> origin/Lewis
             {
                 enemy.add(a); 
             }
@@ -218,7 +251,42 @@ public class Human extends Being
         moveTo(loc);
     }
     
+<<<<<<< HEAD
    
+=======
+
+    public void PlaySound() throws IOException
+    {
+        try {
+            
+            File audioFile = new File("src\\info\\gridworld\\actor\\Human.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
+            
+            audioClip.open(audioStream);
+            audioClip.start();
+            
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            audioClip.close();
+            audioStream.close();
+            
+            
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+>>>>>>> origin/Lewis
     public int findDirection()
     {
         ArrayList<Location> L = getGrid().getOccupiedLocations();
@@ -253,6 +321,7 @@ public class Human extends Being
                
         return direction;
     }
+<<<<<<< HEAD
     
 
     public void PlaySound() throws IOException
@@ -284,4 +353,6 @@ public class Human extends Being
             Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+=======
+>>>>>>> origin/Lewis
 }
