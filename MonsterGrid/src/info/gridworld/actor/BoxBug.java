@@ -42,7 +42,7 @@ public class BoxBug extends Bug
     /**
      * Moves to the next location of the square.
      */
-    public void act()
+    public String act()
     {
         if (steps < sideLength && canMove())
         {
@@ -55,5 +55,6 @@ public class BoxBug extends Bug
             turn();
             steps = 0;
         }
+        return "";
     }
 }

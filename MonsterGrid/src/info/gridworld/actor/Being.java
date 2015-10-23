@@ -25,16 +25,21 @@ public abstract class Being extends Actor
      *          them, getting locations to move to, selecting one of them, 
      *          and moving to the selected location.
      */
-    public void act()
+    public String act()
     {
         if (getGrid() == null)
-            return;
+            return "";
+        String s = "";
+        Location current = this.getLocation();
         ArrayList<Actor> actors = getActors();
-        processActors(actors);
+        s += processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs);
         makeMove(loc);
-        
+        Location next = this.getLocation();
+        s += "\nBeing moved from "+current.toString()+" to "+
+                next.toString();
+        return new String(s);
     }
 
     /**
@@ -57,13 +62,21 @@ public abstract class Being extends Actor
      * same grid as this Being.
      * @param actors the actors to be processed
      */
-    public void processActors(ArrayList<Actor> actors)
+    public String processActors(ArrayList<Actor> actors)
     {
+        String s = "";
+        Location L;
         for (Actor a : actors)
         {
             if (!(a instanceof Rock) && !(a instanceof Being))
+            {
+                L = a.getLocation();
+                s += "\nBeing removed "+a.getClass().toString()+" at location"+
+                        L.toString();
                 a.removeSelfFromGrid();
+            }
         }
+        return new String(s);
     }
 
     /**

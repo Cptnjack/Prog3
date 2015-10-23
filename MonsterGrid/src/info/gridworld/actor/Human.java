@@ -7,15 +7,30 @@ package info.gridworld.actor;
 
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
+<<<<<<< HEAD
 import java.awt.Color;
+=======
+import java.io.File;
+import java.io.IOException;
+>>>>>>> refs/remotes/origin/master
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
  * @author lconfair
  */
 public class Human extends Being
+<<<<<<< HEAD
 {   
     /**
      * Constructs a Human.
@@ -34,21 +49,40 @@ public class Human extends Being
         setColor(initialColor);
     }
     
+=======
+{
+    
+    public Human() throws IOException
+    {
+        super();
+        PlaySound();
+    }
+>>>>>>> refs/remotes/origin/master
     /**
      * Method:  act
      * Purpose: A human acts by getting a list of its neighbors, processing 
      *          them, getting locations to move to, selecting one of them, and 
      *          moving to the selected location.
      */
-    public void act()
+    public String act()
     {
         if (getGrid() == null)
+<<<<<<< HEAD
             return;
         ArrayList<Actor> actors = getActors();        
+=======
+            return "";
+        Location current = this.getLocation();
+        ArrayList<Actor> actors = getActors();
+>>>>>>> refs/remotes/origin/master
         processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs,findDirection());
         makeMove(loc);
+        Location next = this.getLocation();
+        String s = "\nHuman moved from "+current.toString()+" to "+
+                next.toString();
+        return new String(s);
     }
 
     /**
@@ -63,6 +97,38 @@ public class Human extends Being
         return getGrid().getNeighbors(getLocation());
     }
 
+//    /**
+//     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
+//     * are not rocks or critters. Override this method in subclasses to process
+//     * neighbors in a different way. <br />
+//     * Precondition: All objects in <code>actors</code> are contained in the
+//     * same grid as this critter.
+//     * @param actors the actors to be processed
+//     */
+//    public void processActors(ArrayList<Actor> actors)
+//    {
+//        ArrayList<Actor> enemy = new ArrayList<>();
+//        for (Actor a : actors)
+//        {
+//                       
+//            if (a instanceof Food)
+//            {
+//                enemy.add(a); 
+//            }
+//        }   
+//        
+//        int n = enemy.size();
+//        if (n == 0)
+//            return;
+//        int r = (int) (Math.random() * n);
+//
+//        Actor other = enemy.get(r);
+//        other.removeSelfFromGrid();
+////            if (!(a instanceof Rock) && !(a instanceof Critter))
+////                a.removeSelfFromGrid();
+//        
+//    }
+
     /**
      * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
      * are not rocks or critters. Override this method in subclasses to process
@@ -71,15 +137,20 @@ public class Human extends Being
      * same grid as this critter.
      * @param actors the actors to be processed
      */
-    public void processActors(ArrayList<Actor> actors)
+    public String processActors(ArrayList<Actor> actors)
     {
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
+<<<<<<< HEAD
         {           
             if (!(a instanceof Rock) 
                     && !(a instanceof Human) 
                     && !(a instanceof Entrance)
                     && !(a instanceof ExitPortal))
+=======
+        {             
+            if (a instanceof Food)
+>>>>>>> refs/remotes/origin/master
             {
                 enemy.add(a); 
             }
@@ -87,13 +158,19 @@ public class Human extends Being
         
         int n = enemy.size();
         if (n == 0)
-            return;
+            return "";
         int r = (int) (Math.random() * n);
 
         Actor other = enemy.get(r);
+<<<<<<< HEAD
         other.removeSelfFromGrid();   
+=======
+        other.removeSelfFromGrid();
+        String s = "";
+        return new String(s);        
+>>>>>>> refs/remotes/origin/master
     }
-
+    
     /**
      * Gets the possible locations for the next move. Implemented to return the
      * empty neighboring locations. Override this method in subclasses to look
@@ -169,6 +246,7 @@ public class Human extends Being
         moveTo(loc);
     }
     
+<<<<<<< HEAD
 
     
     public int findDirection()
@@ -208,4 +286,35 @@ public class Human extends Being
     }
     
 
+=======
+    public void PlaySound() throws IOException
+    {
+        try {
+            
+            File audioFile = new File("src\\info\\gridworld\\actor\\Human.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip audioClip = (Clip) AudioSystem.getLine(info);
+            
+            audioClip.open(audioStream);
+            audioClip.start();
+            
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            audioClip.close();
+            audioStream.close();
+            
+            
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+>>>>>>> refs/remotes/origin/master
 }

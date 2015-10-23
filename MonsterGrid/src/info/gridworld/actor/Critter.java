@@ -32,15 +32,17 @@ public class Critter extends Actor
      * getting locations to move to, selecting one of them, and moving to the
      * selected location.
      */
-    public void act()
+    public String act()
     {
         if (getGrid() == null)
-            return;
+            return "";
+        
         ArrayList<Actor> actors = getActors();
         processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs);
         makeMove(loc);
+        return "";
     }
 
     /**
