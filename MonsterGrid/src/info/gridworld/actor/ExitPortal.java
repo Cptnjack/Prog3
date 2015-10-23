@@ -37,14 +37,14 @@ public class ExitPortal extends Actor
      * Overrides the <code>act</code> method in the <code>Actor</code> class
      * to do nothing.
      */
-    public void act()
+    public String act()
     {
         
         if (getGrid() == null)
-            return;
+            return "";
         ArrayList<Actor> actors = getActors();        
         processActors(actors);
-        
+        return "";
     }
     
     /**

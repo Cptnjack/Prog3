@@ -8,7 +8,10 @@ package info.gridworld.actor;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,13 +44,17 @@ public class Entrance extends Actor
      * Overrides the <code>act</code> method in the <code>Actor</code> class
      * to do nothing.
      */
-    public void act()
+    public String act()
     {
         
         if (getGrid() == null)
-            return;       
-        processActors();
-        
+            return "";       
+        try {
+            processActors();
+        } catch (IOException ex) {
+            Logger.getLogger(Entrance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";        
     }
     
     /**
@@ -68,9 +75,8 @@ public class Entrance extends Actor
      * neighbors in a different way. <br />
      * Precondition: All objects in <code>actors</code> are contained in the
      * same grid as this critter.
-     * @param actors the actors to be processed
      */
-    public void processActors()
+    public void processActors() throws IOException
     {
         Grid<Actor> gr = getGrid();        
               

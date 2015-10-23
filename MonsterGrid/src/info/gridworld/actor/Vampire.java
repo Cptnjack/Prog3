@@ -30,12 +30,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Vampire extends Monster 
 {
-    private static final Color DEFAULT_COLOR = Color.BLACK;
+    //private static final Color DEFAULT_COLOR = Color.BLACK;
     
     public Vampire() throws IOException
     {
         super();
-        setColor(DEFAULT_COLOR);
+        setColor(null);
         PlaySound();
     }
     

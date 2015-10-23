@@ -7,13 +7,9 @@ package info.gridworld.actor;
 
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
-<<<<<<< HEAD
 import java.awt.Color;
-=======
 import java.io.File;
 import java.io.IOException;
->>>>>>> refs/remotes/origin/master
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,14 +26,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author lconfair
  */
 public class Human extends Being
-<<<<<<< HEAD
 {   
     /**
      * Constructs a Human.
      */
-    public Human()
+    public Human() throws IOException
     {
-        setColor(null);
+        super();        
+        setColor(null); 
+        PlaySound();
     }
 
     /**
@@ -47,17 +44,8 @@ public class Human extends Being
     public Human(Color initialColor)
     {
         setColor(initialColor);
-    }
-    
-=======
-{
-    
-    public Human() throws IOException
-    {
-        super();
-        PlaySound();
-    }
->>>>>>> refs/remotes/origin/master
+    }    
+
     /**
      * Method:  act
      * Purpose: A human acts by getting a list of its neighbors, processing 
@@ -67,14 +55,10 @@ public class Human extends Being
     public String act()
     {
         if (getGrid() == null)
-<<<<<<< HEAD
-            return;
-        ArrayList<Actor> actors = getActors();        
-=======
             return "";
+       
         Location current = this.getLocation();
         ArrayList<Actor> actors = getActors();
->>>>>>> refs/remotes/origin/master
         processActors(actors);
         ArrayList<Location> moveLocs = getMoveLocations();
         Location loc = selectMoveLocation(moveLocs,findDirection());
@@ -141,16 +125,8 @@ public class Human extends Being
     {
         ArrayList<Actor> enemy = new ArrayList<>();
         for (Actor a : actors)
-<<<<<<< HEAD
-        {           
-            if (!(a instanceof Rock) 
-                    && !(a instanceof Human) 
-                    && !(a instanceof Entrance)
-                    && !(a instanceof ExitPortal))
-=======
         {             
             if (a instanceof Food)
->>>>>>> refs/remotes/origin/master
             {
                 enemy.add(a); 
             }
@@ -162,13 +138,9 @@ public class Human extends Being
         int r = (int) (Math.random() * n);
 
         Actor other = enemy.get(r);
-<<<<<<< HEAD
-        other.removeSelfFromGrid();   
-=======
         other.removeSelfFromGrid();
         String s = "";
         return new String(s);        
->>>>>>> refs/remotes/origin/master
     }
     
     /**
@@ -246,9 +218,7 @@ public class Human extends Being
         moveTo(loc);
     }
     
-<<<<<<< HEAD
-
-    
+   
     public int findDirection()
     {
         ArrayList<Location> L = getGrid().getOccupiedLocations();
@@ -281,12 +251,10 @@ public class Human extends Being
         if (target instanceof ExitPortal)
             direction += 180;
                
-        System.out.println(direction);
         return direction;
     }
     
 
-=======
     public void PlaySound() throws IOException
     {
         try {
@@ -316,5 +284,4 @@ public class Human extends Being
             Logger.getLogger(Zombie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
->>>>>>> refs/remotes/origin/master
 }
