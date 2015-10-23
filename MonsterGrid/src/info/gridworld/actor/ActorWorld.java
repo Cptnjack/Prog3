@@ -59,6 +59,7 @@ public class ActorWorld extends World<Actor>
     {
         Grid<Actor> gr = getGrid();
         ArrayList<Actor> actors = new ArrayList<Actor>();
+        String s = "";
         for (Location loc : gr.getOccupiedLocations())
             actors.add(gr.get(loc));
 
@@ -66,7 +67,10 @@ public class ActorWorld extends World<Actor>
         {
             // only act if another actor hasn't removed a
             if (a.getGrid() == gr)
-                a.act();
+            {
+                s = a.act();
+                super.setMessage(super.getMessage()+s);
+            }
         }
     }
 

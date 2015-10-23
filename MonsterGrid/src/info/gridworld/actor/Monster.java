@@ -22,13 +22,23 @@ public class Monster extends Being
      * same grid as this critter.
      * @param actors the actors to be processed
      */
-    public void processActors(ArrayList<Actor> actors)
+    public String processActors(ArrayList<Actor> actors)
     {
+     
+        String s = "";
+        Location L;
         for (Actor a : actors)
         {
             if (!(a instanceof Rock) && !(a instanceof Monster))
+            {
+                L = a.getLocation();
+                s += "\nBeing removed "+a.getClass().toString()+" at location"+
+                        L.toString();
                 a.removeSelfFromGrid();
+                 
+            }     
         }
+        return new String(s);
     }
 
     /**
@@ -72,5 +82,28 @@ public class Monster extends Being
     public void makeMove(Location loc)
     {
         moveTo(loc);
+    }
+    
+    /**
+     * Method:  act
+     * @returns: void
+     * Purpose: A Vampire acts by getting a list of its neighbors, processing 
+     *          them, getting locations to move to, selecting one of them, 
+     *          and moving to the selected location.
+     */
+    public String act()
+    {
+        if (getGrid() == null)
+            return "";
+        Location current = this.getLocation();
+        ArrayList<Actor> actors = getActors();
+        processActors(actors);
+        ArrayList<Location> moveLocs = getMoveLocations();
+        Location loc = selectMoveLocation(moveLocs);
+        makeMove(loc);
+        Location next = this.getLocation();
+        String s = "\nMonster moved from "+current.toString()+" to "+
+                next.toString();
+        return new String(s);
     }
 }

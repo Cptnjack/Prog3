@@ -48,12 +48,13 @@ public class Bug extends Being
     /**
      * Moves if it can move, turns otherwise.
      */
-    public void act()
+    public String act()
     {
         if (canMove())
             move();
         else
             turn();
+        return "";
     }
 
     /**
