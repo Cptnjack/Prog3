@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Name:    Lewis Confair and Michael Whitley
+ * File:    Entrance.java
+ * Purpose: Provides a class for a Entrance actor.
  */
 package info.gridworld.actor;
 
@@ -14,17 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author lconfair
+ * An Entrance is an actor that does not move and spawns a Human if there are no
+ * humans currently on the grid
  */
 public class Entrance extends Actor
 {
-    
-
     private static final Color DEFAULT_COLOR = Color.BLACK;
 
     /**
-     * Constructs a black rock.
+     * Method: Entrance
+     * Purpose: default constructor for a black entrance.
      */
     public Entrance()
     {
@@ -32,21 +31,23 @@ public class Entrance extends Actor
     }
 
     /**
-     * Constructs a rock of a given color.
-     * @param rockColor the color of this rock
+     * Method: Entrance
+     * Purpose: parameterized constructor for an entrance of color entranceColor.
+     * @param entranceColor:    the color for the entrance
      */
-    public Entrance(Color rockColor)
+    public Entrance(Color entranceColor)
     {
-        setColor(rockColor);
+        setColor(entranceColor);
     }
 
     /**
-     * Overrides the <code>act</code> method in the <code>Actor</code> class
-     * to do nothing.
+     * Method:  act
+     * Purpose: An entrance acts by getting a list of neighbors and processing 
+     *          them
+     * @return String: returns a string to be output in the panel 
      */
     public String act()
     {
-        
         if (getGrid() == null)
             return "";       
         try {
@@ -54,7 +55,7 @@ public class Entrance extends Actor
         } catch (IOException ex) {
             Logger.getLogger(Entrance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
+        return "";        
     }
     
     /**
@@ -62,7 +63,7 @@ public class Entrance extends Actor
      * Purpose: Gets the actors that are in the same grid for processing. 
      *          Implemented to return the actors that occupy neighboring grid 
      *          locations. 
-     * @return a list of actors that are neighbors of this critter
+     * @return: a list of actors that are neighbors of this critter
      */
     public ArrayList<Actor> getActors()
     {
@@ -70,18 +71,16 @@ public class Entrance extends Actor
     }
     
     /**
-     * Processes the actors. Implemented to "eat" (i.e. remove) all actors that
-     * are not rocks or critters. Override this method in subclasses to process
-     * neighbors in a different way. <br />
-     * Precondition: All objects in <code>actors</code> are contained in the
-     * same grid as this critter.
-     * @param actors the actors to be processed
+     * Method:  processActors
+     * Purpose: Processes the actors. If there are no humans on the grid the 
+     *          entrance will spawn a new one
+     * @throws java.io.IOException
      */
     public void processActors() throws IOException
     {
         Grid<Actor> gr = getGrid();        
               
-        
+        //check all the actors on the grid. If there is a human return
         ArrayList<Location> L = getGrid().getOccupiedLocations();
         Actor player = null;
         for (Location i : L)
@@ -91,6 +90,8 @@ public class Entrance extends Actor
                 return;
         }
         
+        //if there are no humans on the grid find an open spot and spawn a new 
+        //human in that location
         ArrayList<Location> open = getGrid().getEmptyAdjacentLocations(getLocation());
         int n = open.size();
         if (n == 0)
@@ -99,7 +100,6 @@ public class Entrance extends Actor
         
         Location place = open.get(r);
         Human h = new Human();
-        h.putSelfInGrid(gr , place);
-      
+        h.putSelfInGrid(gr , place);      
     }
 }
